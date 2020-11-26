@@ -31,22 +31,19 @@ class ArticleController extends Controller
     public function index()
     {
         //if(Auth::user()->is_admin == 1){
-            if(TRUE){
         $articles = Article::orderBy('created_at','desc')->paginate(4);
         $users = User::all();
         $tags = Tag::all();
         return view('articles.index', compact('articles', 'users', 'tags'));
-        }
-        else {
-            return redirect('home');
-        }
+
     }
 
     public function main()
     {
-
+        //flash('Welcome Aboard!');
         $articles = Article::where('user_id', 1)->orderBy('title', 'desc')->take(4)->get();
         $tags = Tag::all();
+        //$classroom = Classroom::where('id',)
         return view('home', ['articles' => $articles, 'tags' => $tags]);
 
     }

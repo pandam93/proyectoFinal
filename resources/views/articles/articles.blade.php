@@ -5,8 +5,7 @@
 <div class="col-md-8 blog-main col-lg-8 blog-main col-sm-8 blog-main">
 <div class="blog-post">
 <ul class="list-group">
-<div class="panel-heading">All Articles by <a href="/users/{{
-$user->id }}">{{ $user->name }}</a> </div>
+<div class="panel-heading">All Articles by <a href="{{url('/users/'. $user->id) }}">{{ $user->name }}</a> </div>
 @foreach($user->articles as $article)
 <li class="list-group-item">
 <h2 class="blog-post-title">

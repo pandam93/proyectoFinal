@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Carlos',
             'email' => 'cfmillanm@gmail.com',
             'password' => Hash::make('password'),
+            'classroom_id' => '1',
         ]);
 
         App\User::where('id', 1)->first()->profile()->save(factory(App\Profile::class)->make());;
