@@ -1,4 +1,6 @@
 <?php
+use App\Article;
+use App\Tag;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,10 +13,24 @@
 |
 */
 
+
+/*
 Route::get('/', function () {
-    return view('welcome');
+$articles = Article::all();
+$tags = Tag::all();
+return view('welcome', ['articles' => $articles, 'tags' => $tags]);
 });
+*/
 
 Auth::routes();
+Route::get('/home', 'ArticleController@main')->name('home');
+Route::resources([
+  'users' => 'UserController',
+  'profiles' => 'ProfileController',
+  'articles' => 'ArticleController',
+  'comments' => 'CommentController'
+]);
+Route::get('/users/{id}/articles', 'ArticleController@articles');
+Route::get('/', 'WelcomeController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::resource('tasks', 'TaskController');

@@ -36,4 +36,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function profile() {
+        return $this->hasOne('App\Profile');
+        }
+
+
+        public function article() {
+            return $this->hasOne('App\Article');
+            }
+
+
+        public function articles() {
+            return $this->hasMany('App\Article');
+            }
+
+            //Yo creo que estos al final no se van a usar o no se, los dejo pa porsi
+        public function role() {
+            return $this->hasOne('App\Role');
+            }
+
+        public function roles() {
+            return $this->hasMany('App\Role');
+            }
+            //hasta aqui lo anteriorxD
+
+            public function classroom() {
+                return $this->belongsTo('App\Classroom');
+                }
+
+                public function comment() {
+                    return $this->hasOne('App\Comment');
+                }
+
+                public function comments() {
+                    return $this->hasMany('App\Comment');
+                }
 }
