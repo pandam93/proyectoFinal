@@ -25,6 +25,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'img' => 'https://randomuser.me/api/portraits/men/' . random_int(1, 68) . '.jpg',
         //'classroom_id' => $faker->randomDigit,
         'classroom_id' => $faker->biasedNumberBetween($min = 1, $max = 20, $function = 'sqrt'),
         'remember_token' => Str::random(10),
@@ -48,7 +49,6 @@ $factory->define(App\Article::class, function (Faker $faker) {
     $factory->define(App\Profile::class, function (Faker $faker) {
     return [
     'user_id' => App\User::all()->random()->id,
-    'img' => 'https://randomuser.me/api/portraits/men/' . random_int(1, 68) . '.jpg',
     'classroom' =>App\Classroom::all()->random()->name,
     'about' => $faker->paragraph(random_int(3, 5))
     ];
@@ -80,7 +80,7 @@ $factory->define(App\Article::class, function (Faker $faker) {
         });
 
         $factory->define(App\Message::class, function () {
-            
+
             return ['sent_id' => 2,
                     'recieve_id' => 3,
                     
