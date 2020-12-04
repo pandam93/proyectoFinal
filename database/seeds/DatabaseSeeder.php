@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,6 +45,14 @@ class DatabaseSeeder extends Seeder
             shuffle($ids);
             $sliced = array_slice($ids, 1, 20);
             $role->users()->attach($sliced);
+            });
+
+            
+            factory(App\Message::class, 6)->create()->each(function ($message, $index){
+                $enviados = ['Hola','Qué tal','Bien, gracias. Podrías decirme si maniana habrá clases?', 'Gracias, eso era todo','Hola de nuevo! No sé qué poner','Vale, adiós','Muchas gracias!!'];
+                $day = Carbon::now();
+                $this->body = $enviados[$index];
+                $this->created_at = $day->add(1,'day');
             });
 
             

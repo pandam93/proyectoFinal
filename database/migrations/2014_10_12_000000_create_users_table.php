@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('is_professor')->default(false);
-            $table->string('img')->nullable();
             $table->integer('classroom_id')->nullable();
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
