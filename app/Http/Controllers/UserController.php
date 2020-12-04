@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Carbon\CarbonPeriod;
 
 class UserController extends Controller
 {
@@ -15,6 +16,30 @@ class UserController extends Controller
             ->orderBy('name', 'desc')
             ->get();
             return view('professor.classroom', compact('students'));
+        }
+    }
+
+    public function studentFile($id){
+
+        $user = User::find($id);
+
+
+        $months = array(
+            'Septiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre',
+            'Enero',
+            'Febrero',
+            'Marzo ',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+        );
+        if(Auth::user()->is_professor == 1){
+            return view('professor.show-student', compact('user','months'));
         }
     }
     /**

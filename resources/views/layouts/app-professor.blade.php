@@ -156,6 +156,15 @@
             <li class="breadcrumb-item">1ro DAW</li>
             <li class="breadcrumb-item active" aria-current="page">Lista</li>
             @endif
+            @if (Request::is('home/1daw/*'))
+            <li class="breadcrumb-item"><a href="{{route('home') }}">Home</a></li>
+            <li class="breadcrumb-item">1ro DAW</li>
+            <li class="breadcrumb-item"><a href="{{ route('1daw') }}">Lista</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ $user->name}}
+            </li>
+            
+            @endif
 
         </ol>
       </nav>

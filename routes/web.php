@@ -1,6 +1,7 @@
 <?php
 use App\Article;
 use App\Tag;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,6 @@ use App\Tag;
 Auth::routes();
 
 Route::get('/home', 'UserController@index')->name('home');
-Route::get('/home/1daw','UserController@clase');
+Route::get('/home/1daw','UserController@clase')->name('1daw');
+Route::get('/home/1daw/{id}','UserController@studentFile')->where('id', '[0-9]+');
 Route::get('/', 'WelcomeController@index');

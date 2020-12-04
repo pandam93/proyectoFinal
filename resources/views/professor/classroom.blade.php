@@ -43,7 +43,7 @@
                             <input type="checkbox" autocomplete="off"> Retraso
                           </label>
                       </div>
-                          <a href="#">Perfil</a>
+                    <a href="{{action('UserController@studentFile', ['id' => $student->id])}}">Perfil</a>
     
                   </div>
                   </div>
