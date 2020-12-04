@@ -13,24 +13,8 @@ use App\Tag;
 |
 */
 
-
-/*
-Route::get('/', function () {
-$articles = Article::all();
-$tags = Tag::all();
-return view('welcome', ['articles' => $articles, 'tags' => $tags]);
-});
-*/
-
 Auth::routes();
-Route::get('/home', 'ArticleController@main')->name('home');
-Route::resources([
-  'users' => 'UserController',
-  'profiles' => 'ProfileController',
-  'articles' => 'ArticleController',
-  'comments' => 'CommentController'
-]);
-Route::get('/users/{id}/articles', 'ArticleController@articles');
-Route::get('/', 'WelcomeController@index');
 
-//Route::resource('tasks', 'TaskController');
+Route::get('/home', 'UserController@index')->name('home');
+Route::get('/home/1daw','UserController@clase');
+Route::get('/', 'WelcomeController@index');

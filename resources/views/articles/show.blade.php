@@ -37,7 +37,7 @@
               </h3>
               <li class="list-group-item-info">Other Articles by
                   <p>
-                      <a href="/users/{{ $article->user_id }}/articles">{{ $article->user->name }}</a>
+                      <a href="{{ url('/users/' . $article->user_id . '/articles')}}">{{ $article->user->name }}</a>
                   </p>
               </li>
               <h3 class="blog-post">

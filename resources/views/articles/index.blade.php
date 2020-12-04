@@ -7,8 +7,7 @@
 <ul class="list-group">
 @foreach($articles as $article)
 <li class="list-group-item"><h2 class="blog-post-title">
-<li class="list-group-item"><a href="/articles/{{
-$article->id }}">{{ $article->title }}</a>
+<li class="list-group-item"><a href="{{ url('/articles/' . $article->id) }}">{{ $article->title }}</a>
 </h2>
 </li>
 @endforeach
@@ -22,7 +21,7 @@ $article->id }}">{{ $article->title }}</a>
 <div class="p-3">
 <h4 class="font-italic">All Writers</h4>
 @foreach($users as $user)
-<a href="/users/{{ $user->id }}">{{ $user->name }}</a>...
+<a href="{{ url('/users/'. $user->id) }}">{{ $user->name }}</a>...
 @endforeach
 {{--</div>
 </aside>
@@ -30,7 +29,7 @@ $article->id }}">{{ $article->title }}</a>
 <div class="p-3">--}}
 <h4 class="font-italicitalic">Tags-Cloud</h4>
 @foreach($tags as $tag)
-<a href="/tags/{{ $tag->id }}">{{ $tag->tag }}</a>...
+<a href=" {{ url('/tags/' .$tag->id) }}">{{ $tag->tag }}</a>...
 @endforeach
 </div>
 </aside>

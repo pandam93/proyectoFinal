@@ -30,7 +30,7 @@
                   @foreach($user->profile->comments as $comment)
                   <li class="list-group-item">{{ $comment->body }}</li>
                   <li class="list-group-item">by <strong>
-                    <a href="/users/{{ $comment->user_id }}">{{ $comment->user->name }}</a>
+                    <a href="{{ url('/users/' .$comment->user_id) }}">{{ $comment->user->name }}</a>
                   </strong></li>
                   @endforeach
                 </div>
