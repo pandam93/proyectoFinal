@@ -3,58 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Auth;
 use Illuminate\Http\Request;
-use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
 
-    public function clase() {
-        if(Auth::user()->is_professor == 1){
-            $students = User::where('is_professor', 0)
-            ->orderBy('name', 'desc')
-            ->get();
-            return view('professor.classroom', compact('students'));
-        }
     }
 
-    public function studentFile($id){
-
-        $user = User::find($id);
-
-
-        $months = array(
-            'Septiembre',
-            'Octubre',
-            'Noviembre',
-            'Diciembre',
-            'Enero',
-            'Febrero',
-            'Marzo ',
-            'Abril',
-            'Mayo',
-            'Junio',
-            'Julio',
-            'Agosto',
-        );
-        if(Auth::user()->is_professor == 1){
-            return view('professor.show-student', compact('user','months'));
-        }
+    /**
+     * Display a listing of the resource
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function home()
+    {
+        $profile = Auth::user()->profile;
+        $classrooms = Auth::user()->classrooms;
+        return view('professor.home')->with(compact('profile','classrooms'));
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
-    public function index(){
-        if(Auth::user()->is_professor == 1){
-            return view('professor.home');
-        }
+    public function index()
+    {
 
-        $users = User::all();
-        return view('users.index', compact('users'));
-        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +45,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -85,10 +67,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-      //$roles = User::find($user->id)->roles;
-      $days = cal_days_in_month(CAL_GREGORIAN, 2, 2020);
-      $user = User::find($user->id);
-      return view('users.show', compact('user'));
+
     }
 
     /**

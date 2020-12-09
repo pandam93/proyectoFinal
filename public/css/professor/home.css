@@ -1,0 +1,21 @@
+#bloque-1 > *:not(:last-child) {
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+#bloque-2 > *:not(:last-child) {
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+#bloque-3 > *:not(:last-child) {
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.asig {
+  padding: 1px;
+}
+.asig-group {
+  padding: 5px;
+}

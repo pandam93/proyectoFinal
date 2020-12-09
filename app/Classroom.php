@@ -6,13 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
-    protected $fillable = [
-        'name'
-        ];
-        public function users() {
-        return $this->hasMany('App\User');
-        }
-        public function articles(){
-        return $this->hasManyThrough('App\Article', 'App\User');
-        }
+    //
+
+    //Relations
+    public $timestamps = false;
+
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
+
+    public function teachers($role = 'pr'){
+        return $this->belongsToMany(User::class)->where('role',$role);
+    }
+
+    public function students($role = 'st'){
+        return $this->belongsToMany(User::class)->where('role',$role);
+    }
+
+    public function subjects(){
+        return $this->hasMany(Subject::class);
+    }
 }

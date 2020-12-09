@@ -16,7 +16,8 @@ use App\User;
 
 Auth::routes();
 
-Route::get('/home', 'UserController@index')->name('home');
-Route::get('/home/1daw','UserController@clase')->name('1daw');
-Route::get('/home/1daw/{id}','UserController@studentFile')->where('id', '[0-9]+');
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index')->name('/');
+Route::get('/home', 'UserController@home')->name('home');
+Route::get('/home/classroom/{classroom}','ClassroomController@show')->name('classList');
+Route::resource('users', 'UserController');
+

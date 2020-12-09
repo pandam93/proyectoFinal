@@ -37,39 +37,48 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile() {
-        return $this->hasOne('App\Profile');
-        }
+    /**
+     * The messages stuffs
+     */
 
+         // A user can send a message
+    public function sent()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
 
-        public function article() {
-            return $this->hasOne('App\Article');
-            }
+    // A user can also receive a message
+    public function received()
+    {
+        return $this->hasMany(Message::class, 'sent_to_id');
+    }
 
+    //Relations
 
-        public function articles() {
-            return $this->hasMany('App\Article');
-            }
+    public function profile(){
+        return $this->hasOne(Profile::class);
+    }
 
-            //Yo creo que estos al final no se van a usar o no se, los dejo pa porsi
-        public function role() {
-            return $this->hasOne('App\Role');
-            }
+    public function classrooms(){
+        return $this->belongsToMany(Classroom::class);
+    }
 
-        public function roles() {
-            return $this->hasMany('App\Role');
-            }
-            //hasta aqui lo anteriorxD
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
 
-            public function classroom() {
-                return $this->belongsTo('App\Classroom');
-                }
+    public function comments(){
+        return $this->hasMany(Comment::class,'student_id');
+    }
 
-                public function comment() {
-                    return $this->hasOne('App\Comment');
-                }
+    public function subject(){
+        return $this->belongsToMany(Subject::class)->first();
+    }
 
-                public function comments() {
-                    return $this->hasMany('App\Comment');
-                }
+    public function subjects(){
+        return $this->belongsToMany(Subject::class);
+    }
+
+ 
+
 }

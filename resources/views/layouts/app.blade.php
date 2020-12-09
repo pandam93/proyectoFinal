@@ -18,13 +18,44 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('css')
+    <!--
+        <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    -->
+    <style>
+        #bloque-1 > *:not(:last-child) {
+          display: block;
+          margin-bottom: 15px;
+          margin-top: 15px;
+        }
+        #bloque-2 > *:not(:last-child) {
+          display: block;
+          margin-bottom: 15px;
+          margin-top: 15px;
+        }
+        #bloque-3 > *:not(:last-child) {
+          display: block;
+          margin-bottom: 15px;
+          margin-top: 15px;
+        }
+        .asig {
+          padding: 1px;
+        }
+        .asig-group {
+          padding: 5px;
+        }
+      </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    {{ config('app.name', 'Proyecto Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +64,34 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"
+                              >Home </a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a
+                              class="nav-link dropdown-toggle"
+                              href="#"
+                              id="navbarDropdownMenuLink"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              Dropdown link
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,10 +131,16 @@
                         @endguest
                     </ul>
                 </div>
-            </div>
+            
         </nav>
 
-        <main class="py-4" id='test'>
+        <nav id="breadcrumb" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Home</li>
+            </ol>
+          </nav>
+
+        <main role="main">
             @yield('content')
         </main>
     </div>
