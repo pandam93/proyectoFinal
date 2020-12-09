@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         $profile = Auth::user()->profile;
         $classrooms = Auth::user()->classrooms;
-        return view('professor.home')->with(compact('profile','classrooms'));
+        return view('professor.home')->with(compact('profile','classrooms'))->with('linea',['home','pitoo','caca']);
     }
 
     /**
