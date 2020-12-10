@@ -17,7 +17,7 @@ class CreateClassroomsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('short_name');
-            $table->string('year');
+            $table->integer('year');
             $table->unsignedBigInteger('tutor_id')->nullable();            
             $table->unsignedBigInteger('delegado_id')->nullable();
         });

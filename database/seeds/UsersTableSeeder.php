@@ -11,11 +11,35 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 13)->create()->each(function ($student){
-                (rand(0,1)) ? 
-                $student->profile()->save(factory(App\Profile::class)->make())
-                :
-                $student->profile()->save(factory(App\Profile::class)->state('female')->make());
-        });
+                        // Populate roles
+                        $role1 = new App\Role();
+                        $role1->name = 'professor';
+                        $role1->description = 'Administrator';
+                        $role1->save();
+                        
+                        $role2 = new App\Role();
+                        $role2->name = 'student';
+                        $role2->description = 'User';
+                        $role2->save();
+
+                // Populate users
+                factory(App\User::class, 50)->create();
+
+                // Get all the roles attaching up to 3 random roles to each user
+                $roles = App\Role::all();
+
+                // Populate the pivot table
+                App\User::all()->each(function ($user) use ($roles) { 
+                    (rand(0,1)) 
+                    ? 
+                    $user->profile()->save(factory(App\Profile::class)->make())
+                    :
+                    $user->profile()->save(factory(App\Profile::class)->state('female')->make());
+
+                    $user->roles()->attach(
+                        $roles->random(rand(1, 2))->pluck('id')->toArray()
+                    ); 
+                });
+
     }
 }

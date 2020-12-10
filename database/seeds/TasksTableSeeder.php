@@ -12,7 +12,8 @@ class TasksTableSeeder extends Seeder
     public function run()
     {
         factory(App\Task::class, 20)->create()->each(function ($task){
-            //$task->note()->save(factory(App\Note::class)->make());
+            //$task->expires_at = Carbon\Carbon::now()->subDays(rand(1, 5));
+            //$task->save();
         });
     }
 }

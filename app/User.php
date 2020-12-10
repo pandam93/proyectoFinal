@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
@@ -36,6 +36,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function authorizeRoles($roles)
+{
+    abort_unless($this->hasAnyRole($roles), 401);
+    return true;
+}
+public function hasAnyRole($roles)
+{
+    if (is_array($roles)) {
+        foreach ($roles as $role) {
+            if ($this->hasRole($role)) {
+                return true;
+            }
+        }
+    } else {
+        if ($this->hasRole($roles)) {
+             return true; 
+        }   
+    }
+    return false;
+}
+public function hasRole($role)
+{
+    if ($this->roles()->where('name', $role)->first()) {
+        return true;
+    }
+    return false;
+}
 
     /**
      * The messages stuffs
@@ -60,23 +88,29 @@ class User extends Authenticatable
     }
 
     public function classrooms(){
-        return $this->belongsToMany(Classroom::class);
+        return $this->belongsToMany(Classroom::class)->withTimestamps();
     }
-
-    public function tasks(){
-        return $this->hasMany(Task::class);
-    }
-
+    
     public function comments(){
         return $this->hasMany(Comment::class,'student_id');
     }
 
-    public function subject(){
-        return $this->belongsToMany(Subject::class)->first();
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
-    public function subjects(){
-        return $this->belongsToMany(Subject::class);
+    public function getStudents()
+    {
+        return $this->belongsToMany('App\Role')->wherePivot('name', 'user');
+    }
+    
+    public function isProfessor(){
+        return $this->roles()->pluck('name')->first() === 'professor';
+    }
+
+    public function isStudent(){
+        return $this->roles()->pluck('name')->first() === 'student';
     }
 
  

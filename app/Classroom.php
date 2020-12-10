@@ -13,15 +13,7 @@ class Classroom extends Model
 
 
     public function users(){
-        return $this->belongsToMany(User::class);
-    }
-
-    public function teachers($role = 'pr'){
-        return $this->belongsToMany(User::class)->where('role',$role);
-    }
-
-    public function students($role = 'st'){
-        return $this->belongsToMany(User::class)->where('role',$role);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     public function subjects(){

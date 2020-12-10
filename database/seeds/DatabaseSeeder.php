@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CommentsTableSeeder::class);
         $this->call(MessagesTableSeeder::class);
         $this->call(NotesTableSeeder::class);
+        //$this->call(RoleTableSeeder::class);
     }
 
     public function truncateTables(array $tables)

@@ -18,7 +18,7 @@ class CreateCommentsTable extends Migration
             $table->string('body');
             $table->unsignedBigInteger('professor_id');
             $table->unsignedBigInteger('student_id');
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->timestamps();
         });
         

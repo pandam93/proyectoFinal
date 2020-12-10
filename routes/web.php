@@ -17,7 +17,12 @@ use App\User;
 Auth::routes();
 
 Route::get('/', 'WelcomeController@index')->name('/');
-Route::get('/home', 'UserController@home')->name('home');
-Route::get('/home/classroom/{classroom}','ClassroomController@show')->name('classList');
-Route::resource('users', 'UserController');
+
+Route::get('/home', 'UserController@index')->name('home');
+
+
+Route::prefix('/home')->group(function () {
+    Route::resource('tasks', 'TaskController');
+});
+
 

@@ -4,6 +4,13 @@
 <link href="{{ asset('css/professor/home.css') }}" rel="stylesheet">
 @endpush
 @section('content')
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">1ro DAW</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Lista</li>
+  </ol>
+</nav>
 <div class="container-fluid">
   <div class="row">
     <div id="bloque-1" class="col-2">
@@ -15,7 +22,8 @@
               href="#list-home"
               role="tab"
               aria-controls="home"
-              >Area Personal</a
+              >    {{ucfirst($classroom->name)}}
+              </a
             >
             <a
               class="list-group-item list-group-item-action"
@@ -101,14 +109,16 @@
               <div class="container">
                 <div class="row">
               @foreach ($teachers as $item)
-              <div class="col-3">
-                <div class="card mb-4">
-                  <img class="card-img-top" src="{{$item->profile->photo}}" alt="Card image cap">
+              <dv class="col-3">
+                <div class="card  mb-4">
+                  <img class="card-img-top" src="{{ $item->profile->photo }}" alt="Card image cap">
                   <div class="card-body">
-                    <p class="card-text">{{$item->role}}.</p>
+                    <h5 class="card-title">{{ $item->name }}</h5>
+                    <p class="card-text"> Profesor de {{$item->subjects->first()->name}}.</p>
+                    <a href="#" class="btn btn-primary">Enviar un mensaje?</a>
                   </div>
                 </div>
-              </div>
+              </dv>
               @endforeach
             </div>
           </div>
@@ -117,14 +127,16 @@
               <div class="container">
                 <div class="row">
               @foreach ($students as $item)
-              <div class="col-3">
-                <div class="card mb-4">
-                  <img class="card-img-top" src="{{$item->profile->photo}}" alt="Card image cap">
+              <dv class="col-3">
+                <div class="card  mb-4">
+                  <img class="card-img-top" src="{{ $item->profile->photo }}" alt="Card image cap">
                   <div class="card-body">
-                    <p class="card-text">{{$item->role}}.</p>
+                    <h5 class="card-title">{{ $item->name }}</h5>
+                    <!--<p class="card-text"> Profesor de {{$item->subjects->first()->name}}.</p> -->
+                    <a href="#" class="btn btn-primary">Enviar un mensaje?</a>
                   </div>
                 </div>
-              </div>
+              </dv>
               @endforeach
                 </div></div>
             </div>

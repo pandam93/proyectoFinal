@@ -7,7 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Profile::class, function (Faker $faker) {
     return [
-        'surname' => $faker->lastName,
+        'name' => $faker->name,
+        'last_name' => $faker->lastName,
         'phone' => $faker->phoneNumber,
         //'gender' => (rand(0,1) ? 'male' : 'female'),
         'address' => $faker->streetAddress,

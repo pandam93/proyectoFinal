@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 
 
 class UserController extends Controller
@@ -17,25 +19,27 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function home()
-    {
-        $profile = Auth::user()->profile;
-        $classrooms = Auth::user()->classrooms;
-        return view('professor.home')->with(compact('profile','classrooms'))->with('linea',['home','pitoo','caca']);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response 
      */
     public function index()
     {
+        if (Gate::allows('student-home')) {
+            
+            $datosPerfil = Auth::user()->profile;
+            $datosClase = Auth::user()->classrooms->first();
+            
 
+            return view('student.home');
+        }
+
+        if (Gate::allows('teacher-home')){
+            
+            return view('profesor.home');
+        }
+
+        return 'limbo?';
     }
 
     /**
@@ -67,7 +71,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-
+        //
     }
 
     /**

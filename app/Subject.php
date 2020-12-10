@@ -19,15 +19,8 @@ class Subject extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function user(){
-        return $this->belongsToMany(User::class);
-    }
-
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
     
-    public function allNotes(){
-        return $this->hasManyThrough('App\Note', 'App\Task');
-    }
 }

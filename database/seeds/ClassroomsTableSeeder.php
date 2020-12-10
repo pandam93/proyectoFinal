@@ -28,36 +28,70 @@ class ClassroomsTableSeeder extends Seeder
                             '1DAM',
                             '1ASIR');
 
-        factory(App\Classroom::class, 3)->make()->each( function ($classroom) use(&$classrooms, &$shortClassroomsNames) {
+                                                    // Populate roles
+                        $role1 = new App\Role();
+                        $role1->name = 'professor';
+                        $role1->description = 'Administrator';
+                        $role1->save();
+                        
+                        $role2 = new App\Role();
+                        $role2->name = 'student';
+                        $role2->description = 'User';
+                        $role2->save();
+
+                        $roles = collect([$role1, $role2]);
+
+        factory(App\Classroom::class, 3)->make()->each( function ($classroom) use(&$classrooms, &$shortClassroomsNames, $roles) {
 
             $classroom->name = array_pop($classrooms);
             $classroom->short_name = array_pop($shortClassroomsNames);
 
 
-            $classroom->year = 'primero';
+            $classroom->year = 1;
 
+            
 
-
-            $teachersCollection = factory(App\User::class, 6)->state('teacher')->create()->each(function ($teacher){
-            (rand(0,1)) ? 
-                $teacher->profile()->save(factory(App\Profile::class)->make())
+            $teachersCollection = factory(App\User::class, 6)->create()->each(function ($user) use ($roles) {
+                (rand(0,1)) 
+                ? 
+                $user->profile()->save(factory(App\Profile::class)->make())
                 :
-                $teacher->profile()->save(factory(App\Profile::class)->state('female')->make());
-            });
+                $user->profile()->save(factory(App\Profile::class)->state('female')->make());
 
+                $user->roles()->attach(
+                    $roles->get(0)->id
+                ); 
+            });
+                            // Populate the pivot table
+                            
+
+                            
             $teachersCollectionClone = clone $teachersCollection;
 
             $classroom->tutor_id= $teachersCollection->random()->id;
 
 
 
-            $studentsCollection = factory(App\User::class,20)->create()->each(function ($student){
-                (rand(0,1)) ? 
-                $student->profile()->save(factory(App\Profile::class)->make())
-                :
-                $student->profile()->save(factory(App\Profile::class)->state('female')->make());
+            $studentsCollection = factory(App\User::class, 20)->create()->each(function ($user) use ($roles) { 
+           // Populate the pivot table
+            
+           (rand(0,1)) 
+           ? 
+           $user->profile()->save(factory(App\Profile::class)->make())
+           :
+           $user->profile()->save(factory(App\Profile::class)->state('female')->make());
 
+           $user->roles()->attach(
+               $roles->get(1)->id
+           ); 
             });
+ 
+        
+
+$teachersCollectionClone = clone $teachersCollection;
+
+$classroom->tutor_id= $teachersCollection->random()->id;
+
 
             $studentsCollectionClone = clone $studentsCollection;
 
@@ -91,25 +125,27 @@ class ClassroomsTableSeeder extends Seeder
                     $subject->classroom_id = Classroom::get()->last()->id;
                     $subject->save();
 
-                        //dd(Carbon::now());
+                        factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
+                            dd($subject->name);
 
-                        /*factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
+
                             $task->title = 'La tarea de hoy';
                             $task->body = 'lo de faker va medio como el culo estoy por buscar otra cosa';
                             $task->subject_id = $subject->id;
                             $task->created_at = Carbon::now();
+                            $task->expires_at = Carbon::now()->addDays(rand(1, 10));
+
                             $task->save();
 
                             foreach($studentsCollectionClone as $user){
                                 DB::table('notes')->insert([
                                     'task_id' => $task->id,
                                     'user_id' => $user->id,
-                                    'grade' => rand(1,10)
+                                    'created_at' => Carbon::now()->subDays(rand(1, 10)),
+                                    //'grade' => rand(1,10)
                                 ]);
                             }
                         });
-                        */
-
                 });
 
                 $subjectsOf1DAW->each(function($subjectOf1DAW) use($studentsCollection, &$teachersCollection) {
@@ -130,7 +166,7 @@ class ClassroomsTableSeeder extends Seeder
                     
                 });
 
-                }elseif($classroom->short_name == '1DAM'){
+                }elseif($classroom->short_name == '1DAMsssssssssssssssssssssssssssssssssssssssss'){
 
                 $subjects = array('Sistemas informáticos',
                 'Bases de Datos',
@@ -160,6 +196,7 @@ class ClassroomsTableSeeder extends Seeder
                         $task->body = 'lo de faker va medio como el culo estoy por buscar otra cosa';
                         $task->subject_id = $subject->id;
                         $task->created_at = Carbon::now();
+                        $task->expires_at = Carbon::now()->subDays(rand(1, 5));
                         $task->save();
 
                         foreach($studentsCollectionClone as $user){
@@ -190,7 +227,7 @@ class ClassroomsTableSeeder extends Seeder
                 ]);
                 
             });
-            }elseif($classroom->short_name == '1ASIR'){
+            }elseif($classroom->short_name == '1ASIRssssssssssssssssssssssssssssssssssssssssss'){
     
                 $subjects = array('Planificación y administración de redes', 
                 'Implantación de sistemas operativos',
@@ -215,7 +252,7 @@ class ClassroomsTableSeeder extends Seeder
                     $subject->classroom_id = Classroom::get()->last()->id;
                     $subject->save();
 
-                    factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
+                    /*factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
                         $task->title = 'La tarea de hoy';
                         $task->body = 'lo de faker va medio como el culo estoy por buscar otra cosa';
                         $task->subject_id = $subject->id;
@@ -230,7 +267,7 @@ class ClassroomsTableSeeder extends Seeder
                             ]);
                         }
 
-                    });
+                    });*/
     
                 });
 

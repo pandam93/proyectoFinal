@@ -28,15 +28,15 @@ use Faker\Generator as Faker;
 
     $factory->state(Message::class,'professor',function (){
         return [
-            'sender_id' => App\User::where('role','pr')->first()->id,
-            'sent_to_id' => App\User::where('role','st')->first()->id
+            'sender_id' => App\User::whereHas('roles', function($q) { $q->where('name','professor');})->first()->id,
+            'sent_to_id' => App\User::whereHas('roles', function($q) { $q->where('name', 'student');})->get()->first()->id
         ];
     });
 
     $factory->state(Message::class,'student',function (){
         return [
-            'sender_id' => App\User::where('role','st')->first()->id,
-            'sent_to_id' => App\User::where('role','pr')->first()->id
+            'sender_id' => App\User::whereHas('roles', function($q) { $q->where('name','student');})->first()->id,
+            'sent_to_id' => App\User::whereHas('roles', function($q) { $q->where('name','professor');})->get()->first()->id
         ];
     });
 

@@ -17,13 +17,11 @@ class CreateSubjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('short_name');
-            //$table->unsignedBigInteger('professor_id')->nullable();
+            $table->integer('horas')->nullable();
             $table->unsignedBigInteger('classroom_id');
         });
 
         Schema::table('subjects', function (Blueprint $table) {
-            //$table->foreign('professor_id')->references('id')->on('users');
-
             $table->foreign('classroom_id')->references('id')->on('classrooms');
 
         });

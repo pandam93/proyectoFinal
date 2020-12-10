@@ -6,7 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use Auth;
 use Illuminate\Auth\Access\Response;
-use App\Task;
+use App\User;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,8 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-         'App\Task' => 'App\Policies\TaskPolicy',
-         Task::class => TaskPolicy::class,
+
     ];
 
     /**
@@ -30,6 +29,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('student-home', function (User $user) {
+            return $user->isStudent();
+        });
+
+        Gate::define('professor-home', function (User $user){
+            return $user->isProfessor();
+        });
     }
 }

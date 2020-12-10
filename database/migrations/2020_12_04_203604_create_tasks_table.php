@@ -17,9 +17,10 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('body');
-            $table->string('category')->default('Trabajo');
+            $table->enum('category',['trabajo' , 'examen' ,'otro'])->default('trabajo');
             $table->unsignedBigInteger('subject_id');
             $table->timestamps();
+            $table->timestamp('expires_at', 0)->nullable();
 
         });
 

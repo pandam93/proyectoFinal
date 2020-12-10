@@ -51,7 +51,7 @@ class ClassroomController extends Controller
         $teachers = $classroom->teachers;
         $students = $classroom->students;
         $integrants = $classroom->users;
-        return view('classroom.home')->with(compact('teachers','students','integrants'));
+        return view('classroom.home')->with(compact('teachers','students','integrants','classroom'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ClassroomController extends Controller
      */
     public function edit(Classroom $classroom)
     {
-        //
+
     }
 
     /**
