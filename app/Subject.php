@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Subject extends Model
 {
@@ -25,6 +26,10 @@ class Subject extends Model
     
     public function short_name_url(){
         return strtolower($this->short_name);
+    }
+
+    public function tasks_not_expired(){
+        return $this->tasks()->where('expires_at', '>', Carbon::now())->get();
     }
     
 }

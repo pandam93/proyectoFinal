@@ -22,4 +22,6 @@ class Task extends Model
          return $this->hasOne(Note::class);
     }
 
+    
+
 }

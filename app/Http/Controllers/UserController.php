@@ -62,10 +62,18 @@ class UserController extends Controller
                                             $join->on('profiles.id','=','role_user.user_id')
                                             ->where('role_user.role_id', '=', 1);
                             })->select('profiles.*')->get();
-                            
+
+
+            $tasksNotExpired = Auth::user()->subjects->first()->tasks_not_expired();
+
+            $alertTasks = Auth::user()->subjects->first()->tasks_not_expired()->filter(function ($t){
+                                            return $t->note->noteDoneAndNotificable();
+            });
+            
+            $alertTasks = $alertTasks->unique('id');
 
             return view('professor.home')
-                        ->with(compact('datosPerfil','datosClase','professors','students'));
+                        ->with(compact('datosPerfil','datosClase','professors','students','alertTasks'));
         }
 
         return "limbo>?";

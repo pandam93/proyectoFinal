@@ -102,7 +102,7 @@ public function hasRole($role)
 
     public function getStudents()
     {
-        return $this->belongsToMany('App\Role')->wherePivot('name', 'user');
+        return $this->belongsToMany('App\Role')->wherePivot('name', 'student');
     }
     
     public function isProfessor(){
@@ -113,6 +113,8 @@ public function hasRole($role)
         return $this->roles()->pluck('name')->first() === 'student';
     }
 
- 
+    public function subjects(){
+        return $this->belongsToMany(Subject::class);
+    }
 
 }

@@ -7,11 +7,13 @@
       <div class="row">
   @endif
       <div class="col-3">
-        <div class="card  mb-4">
+      <div class="card  mb-4 {{(Auth::user()->id == $item->id) ? 'bg-primary' : ''}}">
         <img class="card-img-top" src="{{$item->photo}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{$item->name}}</h5>
+            @unless (Auth::user()->id == $item->id)
             <a href="#" class="btn btn-primary">Enviar un mensaje?</a>
+            @endunless
           </div>
         </div>
       </div>
@@ -32,7 +34,6 @@
   @endif
   @endforeach
   </div>
-  
     <ul class="nav nav-pills ml-4" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab-pag-professors-1" role="tab" aria-controls="home" aria-selected="true">1</a>
