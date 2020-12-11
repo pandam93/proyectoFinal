@@ -29,12 +29,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('student-home', function (User $user) {
-            return $user->isStudent();
-        });
+
 
         Gate::define('professor-home', function (User $user){
             return $user->isProfessor();
+        });
+
+        Gate::define('student-home', function (User $user) {
+            return $user->isStudent();
         });
     }
 }

@@ -18,8 +18,8 @@ class Task extends Model
         return $this->hasMany(Note::class);
     }
 
-    public function note($user_id){
-         return $this->hasOne(Note::class)->where('user_id', $user_id)->first();
+    public function note(){
+         return $this->hasOne(Note::class);
     }
 
 }

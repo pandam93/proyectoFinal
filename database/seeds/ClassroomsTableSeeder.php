@@ -24,9 +24,9 @@ class ClassroomsTableSeeder extends Seeder
         'administracion de sistemas informaticos en red'
         );
 
-        $shortClassroomsNames = array('1DAW',
-                            '1DAM',
-                            '1ASIR');
+        $shortClassroomsNames = array('DAW',
+                            'DAM',
+                            'ASIR');
 
                                                     // Populate roles
                         $role1 = new App\Role();
@@ -100,7 +100,7 @@ $classroom->tutor_id= $teachersCollection->random()->id;
             $classroom->save();
             $id = $classroom->id;
 
-            if($classroom->short_name == '1DAW'){
+            if($classroom->short_name == 'DAW'){
 
                 $subjects = array('Sistemas informáticos', 
                 'Bases de Datos',
@@ -121,12 +121,11 @@ $classroom->tutor_id= $teachersCollection->random()->id;
     
                     $subject->name = array_pop($subjects);
                     $subject->short_name = array_pop($shortSubjectsNames);
-                    //$subject->professor_id = User::where('role','pr')->get()->random()->id;
                     $subject->classroom_id = Classroom::get()->last()->id;
                     $subject->save();
 
                         factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
-                            dd($subject->name);
+                            //dd($subject->name);
 
 
                             $task->title = 'La tarea de hoy';
@@ -166,7 +165,7 @@ $classroom->tutor_id= $teachersCollection->random()->id;
                     
                 });
 
-                }elseif($classroom->short_name == '1DAMsssssssssssssssssssssssssssssssssssssssss'){
+                }elseif($classroom->short_name == 'DAM'){
 
                 $subjects = array('Sistemas informáticos',
                 'Bases de Datos',
@@ -184,31 +183,34 @@ $classroom->tutor_id= $teachersCollection->random()->id;
                                             'FOL');
     
             $subjectsOf1DAM = factory(App\Subject::class, 6)->make()->each(function ($subject) use(&$subjects, &$shortSubjectsNames, $studentsCollectionClone){
-    
-                    $subject->name = array_pop($subjects);
-                    $subject->short_name = array_pop($shortSubjectsNames);
-                    //$subject->professor_id = User::where('role','pr')->get()->random()->id;
-                    $subject->classroom_id = Classroom::get()->last()->id;
-                    $subject->save();
+
+                $subject->name = array_pop($subjects);
+                $subject->short_name = array_pop($shortSubjectsNames);
+                $subject->classroom_id = Classroom::get()->last()->id;
+                $subject->save();
 
                     factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
+                        //dd($subject->name);
+
+
                         $task->title = 'La tarea de hoy';
                         $task->body = 'lo de faker va medio como el culo estoy por buscar otra cosa';
                         $task->subject_id = $subject->id;
                         $task->created_at = Carbon::now();
-                        $task->expires_at = Carbon::now()->subDays(rand(1, 5));
+                        $task->expires_at = Carbon::now()->addDays(rand(1, 10));
+
                         $task->save();
 
                         foreach($studentsCollectionClone as $user){
                             DB::table('notes')->insert([
                                 'task_id' => $task->id,
                                 'user_id' => $user->id,
-                                'grade' => rand(1,10)
+                                'created_at' => Carbon::now()->subDays(rand(1, 10)),
+                                //'grade' => rand(1,10)
                             ]);
                         }
                     });
-    
-                });
+            });
 
             $subjectsOf1DAM->each(function($subjectOf1DAM) use($studentsCollection, &$teachersCollection) {
 
@@ -227,7 +229,8 @@ $classroom->tutor_id= $teachersCollection->random()->id;
                 ]);
                 
             });
-            }elseif($classroom->short_name == '1ASIRssssssssssssssssssssssssssssssssssssssssss'){
+
+            }elseif($classroom->short_name == 'ASIR'){
     
                 $subjects = array('Planificación y administración de redes', 
                 'Implantación de sistemas operativos',
@@ -244,50 +247,53 @@ $classroom->tutor_id= $teachersCollection->random()->id;
                                             'LMSGI',
                                             'FOL');
     
-                $subjectsOf1ASIR = factory(App\Subject::class, 6)->make()->each(function ($subject) use(&$subjects, &$shortSubjectsNames,$studentsCollectionClone){
-    
-                    $subject->name = array_pop($subjects);
-                    $subject->short_name = array_pop($shortSubjectsNames);
-                    //$subject->professor_id = User::where('role','pr')->get()->random()->id;
-                    $subject->classroom_id = Classroom::get()->last()->id;
-                    $subject->save();
+            $subjectsOf1ASIR = factory(App\Subject::class, 6)->make()->each(function ($subject) use(&$subjects, &$shortSubjectsNames, $studentsCollectionClone){
 
-                    /*factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
+                $subject->name = array_pop($subjects);
+                $subject->short_name = array_pop($shortSubjectsNames);
+                $subject->classroom_id = Classroom::get()->last()->id;
+                $subject->save();
+
+                    factory(App\Task::class,3)->make()->each(function ($task) use ($subject, $studentsCollectionClone){
+                        //dd($subject->name);
+
+
                         $task->title = 'La tarea de hoy';
                         $task->body = 'lo de faker va medio como el culo estoy por buscar otra cosa';
                         $task->subject_id = $subject->id;
                         $task->created_at = Carbon::now();
+                        $task->expires_at = Carbon::now()->addDays(rand(1, 10));
+
                         $task->save();
 
                         foreach($studentsCollectionClone as $user){
                             DB::table('notes')->insert([
                                 'task_id' => $task->id,
                                 'user_id' => $user->id,
-                                'grade' => rand(1,10)
+                                'created_at' => Carbon::now()->subDays(rand(1, 10)),
+                                //'grade' => rand(1,10)
                             ]);
                         }
+                    });
+            });
+                            
+            $subjectsOf1ASIR->each(function($subjectOf1ASIR) use($studentsCollection, &$teachersCollection) {
 
-                    });*/
-    
-                });
-
-                $subjectsOf1ASIR->each(function($subjectOf1ASIR) use($studentsCollection, &$teachersCollection) {
-
-                    foreach($studentsCollection as $student){
-                        DB::table('subject_user')->insert([
-                            'user_id' => $student->id,
-                            'subject_id' => $subjectOf1ASIR->id,
- 
-                        ]);
-                    }
-
-
+                foreach($studentsCollection as $student){
                     DB::table('subject_user')->insert([
-                        'user_id' => $teachersCollection->pop()->id,
-                        'subject_id' => $subjectOf1ASIR->id
+                        'user_id' => $student->id,
+                        'subject_id' => $subjectOf1ASIR->id,
+
                     ]);
-                    
-                });
+                }
+
+
+                DB::table('subject_user')->insert([
+                    'user_id' => $teachersCollection->pop()->id,
+                    'subject_id' => $subjectOf1ASIR->id
+                ]);
+                
+            });
             }
 
             
@@ -326,9 +332,9 @@ $classroom->tutor_id= $teachersCollection->random()->id;
         'administracion de sistemas informaticos en red'
         );
 
-        $shortClassroomsNames = array('2DAW',
-                            '2DAM',
-                            '2ASIR');
+        $shortClassroomsNames = array('DAW',
+                            'DAM',
+                            'ASIR');
 
         /*factory(App\Classroom::class, 3)->make()->each( function ($item) use(&$classrooms, &$shortClassroomsNames) {
             $item->name = array_pop($classrooms);

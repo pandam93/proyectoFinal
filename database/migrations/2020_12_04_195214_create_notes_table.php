@@ -18,7 +18,8 @@ class CreateNotesTable extends Migration
             $table->double('grade')->nullable();
             $table->unsignedBigInteger('task_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->enum('done',['yes','no'])->default('no');
+            $table->boolean('done')->default(0);
+            $table->boolean('noticed')->default(0);
             $table->timestamps();
         });
     }

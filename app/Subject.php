@@ -23,4 +23,8 @@ class Subject extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
     
+    public function short_name_url(){
+        return strtolower($this->short_name);
+    }
+    
 }

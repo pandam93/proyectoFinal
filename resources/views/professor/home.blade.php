@@ -109,7 +109,7 @@
                 <small class="d-block text-right mt-3">
                   <a href="#">All suggestions</a>
                 </small>
-              </div> 
+              </div>
             </div>
               </div>
               <div
@@ -195,29 +195,17 @@
             <div class="row">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active ml-3" id="subject-tab" data-toggle="tab" href="#subject" role="tab" aria-controls="subject" aria-selected="true">Vista general del curso</a>
+                  <a class="nav-link active ml-3" id="nav-link-students" data-toggle="tab" href="#tab-students" role="tab" aria-controls="subject" aria-selected="true">Alumnos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ml-3" id="nav-link-professors" data-toggle="tab" href="#tab-professors" role="tab" aria-controls="subject" aria-selected="false">Profesores</a>
+                  </li>
               </ul>
             </div>
             <div class="row my-3">
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="subject" role="tabpanel" aria-labelledby="subject-tab">
-                  <div class="container">
-                    <div class="row">
-                  @foreach ($asignaturas as $item)
-                  <div class="col-3">
-                    <div class="card mb-4">
-                      <img class="card-img-top" src="https://ewans.files.wordpress.com/2008/07/grey1.jpg" alt="Card image cap" style="height: 100px">
-                      <div class="card-body">
-                        <h5 class="card-title">{{$item->name}}</h5>
-                      <a href="{{url("/home/{$item->short_name_url()}")}}" class="btn btn-primary">Entrar en la asignatura</a>
-                      </div>
-                    </div>
-                  </div>
-                  @endforeach
-                </div>
-              </div>
-                </div>
+                  @include('student.components.students_table')
+                  @include('professor.components.professors_table')
               </div>
             </div>
           </div>
@@ -246,6 +234,5 @@
         </div>
       </div>
     </div>
-
   </div>
 @endsection
