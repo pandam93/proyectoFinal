@@ -7,13 +7,10 @@
       <div class="row">
   @endif
       <div class="col-3">
-      <div class="card  mb-4 {{(Auth::user()->id == $item->id) ? 'bg-primary' : ''}}">
+      <div class="card mb-4 {{(Auth::user()->id == $item->id) ? 'bg-warning' : ''}}">
         <img class="card-img-top" src="{{$item->photo}}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">{{$item->name}}</h5>
-            @unless (Auth::user()->id == $item->id)
-            <a href="#" class="btn btn-primary">Enviar un mensaje?</a>
-            @endunless
+            <h5 class="card-title"><a href="#">{{$item->name}}</a></h5>
           </div>
         </div>
       </div>

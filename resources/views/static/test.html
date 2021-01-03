@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div id="bloque-2" class="col-10">
+        <div class="card">
+            <div class="card-header">
+              Tarea resumen de la segunda Guerra Mundial.
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Estado de la tarea</h5>
+              <hr/>
+              <dl class="row row-tareas">
+                <dt class="col-sm-3">Estado de la entrega</dt>
+                <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+                <dt class="col-sm-3">Estado de la calificación</dt>
+                <dd class="col-sm-9">
+                  Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
+                </dd>
+              
+                <dt class="col-sm-3">Fecha de entrega</dt>
+                <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+              
+                <dt class="col-sm-3 text-truncate">Tiempo restante</dt>
+                <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+
+              </dl>
+            </div>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Vaya!</strong> Parece que aun no has realizado tu entrega...
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div class="card text-center">
+                <div class="card-header">
+                  Enunciado:
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+                <div class="card-footer text-muted">
+                  2 days ago
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header bg-info">
+                    <h6 class="text-white">WHAAAAAAAT! un editor de texto para que la tarea se vea to chula?! AWESOME! Pruebalo hijodeputa</h6>
+                </div>
+                <div class="card-body">
+                <form method="post" action="#" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control"/>
+                        </div>  
+                        <div class="form-group">
+                            <label><strong>Description :</strong></label>
+                            <textarea class="summernote" name="description"></textarea>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success btn-sm">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          </div>
+
+    <!-- Optional JavaScript -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('.summernote').summernote();
+        });
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  </body>
+</html>

@@ -21,7 +21,7 @@
           href="#list-home"
           role="tab"
           aria-controls="home"
-          >    Area Personal
+          >    Bienvenid@
           </a
         >
         <a
@@ -57,6 +57,7 @@
             >
           </div>
         </div>
+        
       </div>
 </div>
 
