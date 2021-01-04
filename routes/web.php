@@ -20,13 +20,5 @@ Route::get('/', 'WelcomeController@index')->name('/');
 
 Route::get('/home', 'UserController@index')->name('home');
 
-
-Route::prefix('{subject}')->group(function () {
-    Route::resource('tasks', 'TaskController')->only(['index','show']);
-    Route::resource('student', 'StudentController')->only(['index', 'show']);
-    Route::resource('temary', 'TemaryController')->only(['index','show']);
-    Route::prefix('students/{id}')->group(function () {
-        Route::resource('tasks', 'StudentTaskController')->only(['index','show']);
-    });
-});
+Route::resource('tasks','TaskController');
 

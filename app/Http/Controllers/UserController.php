@@ -19,7 +19,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
 
     }
 
@@ -30,54 +30,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Gate::allows('student-home')) {
-            $datosPerfil = Auth::user()->profile;
-            $datosClase = Auth::user()->classrooms->first();
-            //dd($datosClase->subjects);
-            $asignaturas = $datosClase->subjects;
-
-            return view('student.home')->with(compact('datosPerfil', 'asignaturas','datosClase'));
-        }
-
-        if (Gate::allows('professor-home')){
-            $datosPerfil = Auth::user()->profile;
-            $datosClase = Auth::user()->classrooms->first();
-            $participantes = $datosClase->users;
-
-            $students = DB::table('profiles')->join('classroom_user', function($join) {
-                                            $join->on('profiles.id','=','classroom_user.user_id')
-                                            ->where('classroom_user.classroom_id', '=', 1);
-                            })->join('subject_user', function($join) {
-                                            $join->on('profiles.id','=','subject_user.user_id')
-                                            ->where('subject_user.subject_id', '=', 1);
-                            })->join('role_user', function($join) {
-                                            $join->on('profiles.id','=','role_user.user_id')
-                                            ->where('role_user.role_id', '=', 2);
-                            })->select('profiles.*')->get();
-
-            $professors = DB::table('profiles')->join('classroom_user', function($join) {
-                                            $join->on('profiles.id','=','classroom_user.user_id')
-                                            ->where('classroom_user.classroom_id', '=', 1);
-                            })->join('role_user', function($join) {
-                                            $join->on('profiles.id','=','role_user.user_id')
-                                            ->where('role_user.role_id', '=', 1);
-                            })->select('profiles.*')->get();
-
-
-            $tasksNotExpired = Auth::user()->subjects->first()->tasks_not_expired();
-
-            $alertTasks = Auth::user()->subjects->first()->tasks_not_expired()->filter(function ($t){
-                                            return $t->note->noteDoneAndNotificable();
-            });
-            
-            $alertTasks = $alertTasks->unique('id');
-
-            return view('professor.home')
-                        ->with(compact('datosPerfil','datosClase','professors','students','alertTasks'));
-        }
-
-        return "limbo>?";
-
+        $users = User::all();
+        return view('users')->with(compact('users'));
     }
 
     /**

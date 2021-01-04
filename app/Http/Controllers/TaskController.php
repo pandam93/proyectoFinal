@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
+use App\Model\Task;
+use App\Repository\TaskRepositoryInterface;
+use App\Http\Requests\StoreTaskRequest;
 use Illuminate\Http\Request;
+
 
 class TaskController extends Controller
 {
+    private $TaskRepository;
 
     /**
    * Create a new controller instance.
    *
    * @return void
    */
-  public function __construct()
+  public function __construct(TaskRepositoryInterface $taskRepository)
     {
-      $this->middleware('auth')->except('index', 'show');
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -25,8 +29,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::get();
-        return view('tasks.index', compact('tasks'));
+        $subjectId = 6;
+        $tasks = $this->taskRepository->mytasks($subjectId);
+
+        return view('tasks.index')->with(compact('tasks'));
     }
 
     /**
@@ -36,13 +42,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
-        if(Auth::user()->is_admin == 1){
-            return view('tasks.create');
-        }
-        else {
-          return redirect('home');
-        }
+        return view('tasks.create');
     }
 
     /**
@@ -51,19 +51,11 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         //
-        if(Auth::user()->is_admin == 1){
-            
-            $post = new Task;
-            $post->title = $request->input('title');
-            $post->body = $request->input('body');  
-            $post->save();
-  
-                if($post){
-                            return redirect('tasks');
-                        }
+        $validated = $request->validated();
+        if($validated){
             
         }
     }
@@ -77,7 +69,7 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         //
-        return view('tasks.show', $task);
+        return view('tasks.show')->with(compact('task'));
     }
 
     /**
@@ -88,14 +80,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
-        if(Auth::user()->is_admin == 1){
-            return view('tasks.edit', $task);
-          }
-          else {
-            // code...
-            return redirect('home');
-          }
+        return view('tasks.edit')->with(compact('task'));
     }
 
     /**
@@ -105,21 +90,15 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(StoreTaskRequest $request, Task $task)
     {
-        //
-        if(Auth::user()->is_admin == 1){
-            
-            $post = $task;
-  $post->title = $request->input('title');
-  $post->body = $request->input('body');  
-  $post->save();
-  
-  if($post){
-             return redirect('tasks');
-         }
-            
+        $validated = $request->validated();
+
+        if($validated){
+            $task->update($request->all());
         }
+        return redirect()->route('tasks.index')
+                        ->with('success','Task updated successfully');
     }
 
     /**
